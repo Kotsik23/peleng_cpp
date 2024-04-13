@@ -11,4 +11,6 @@ add_executable(task
         Logger.cpp
         Logger.h
         CommandHandler.cpp
-        CommandHandler.h)
+        CommandHandler.h
+        utilities/Dates.cpp
+        utilities/Dates.h)

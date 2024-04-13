@@ -84,6 +84,7 @@ int main() {
     commandHandler.handleCommand(input);
   }
 
+
   tWriter.join();
   tReader.join();
 

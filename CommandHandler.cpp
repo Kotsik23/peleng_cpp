@@ -18,28 +18,18 @@ CommandHandler::CommandHandler(std::atomic<bool> &running, std::atomic<bool> &pa
   };
 
   commands["date"] = [](const char *args) {
-    auto now = std::chrono::system_clock::now();
-    auto now_c = std::chrono::system_clock::to_time_t(now);
-    auto localtime = std::localtime(&now_c);
-    std::cout << "Current Date: "
-              << localtime->tm_year + 1900
-              << "." << localtime->tm_mon + 1
-              << "." << localtime->tm_mday << std::endl;
+    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::cout << "Current Date: " << currentDate(now) << '\n';
   };
 
   commands["time"] = [](const char *args) {
-    auto now = std::chrono::system_clock::now();
-    auto now_c = std::chrono::system_clock::to_time_t(now);
-    auto localtime = std::localtime(&now_c);
-    std::cout << "Current Time: "
-              << localtime->tm_hour
-              << ":" << localtime->tm_min
-              << ":" << localtime->tm_sec << std::endl;
+    auto now = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+    std::cout << "Current Time: " << currentTime(now) << '\n';
   };
 
   commands["exit"] = [&running](const char *args) {
     running = false;
-    exit(1);
+    std::cout << "Program was successfully exited." << '\n';
   };
 
   commands["faster"] = [&minEventInterval, &maxEventInterval](const char *args) {
