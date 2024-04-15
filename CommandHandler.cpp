@@ -33,17 +33,25 @@ CommandHandler::CommandHandler(std::atomic<bool> &running, std::atomic<bool> &pa
   };
 
   commands["faster"] = [&minEventInterval, &maxEventInterval](const char *args) {
-    int min = minEventInterval;
-    int max = maxEventInterval;
-    if (min > 1000) minEventInterval = min - 1000;
-    if (max > 1000) maxEventInterval = max - 1000;
+    int minLimit = 500;
+    int delta = 1000;
+    if (minEventInterval > delta + minLimit) {
+      minEventInterval -= delta;
+      maxEventInterval -= delta;
+    } else {
+      std::cerr << "Cannot decrease interval further." << std::endl;
+    }
   };
 
   commands["slower"] = [&minEventInterval, &maxEventInterval](const char *args) {
-    int min = minEventInterval;
-    int max = maxEventInterval;
-    minEventInterval = min + 1000;
-    maxEventInterval = max + 1000;
+    int maxLimit = 10000;
+    int delta = 1000;
+    if (maxEventInterval + delta < maxLimit) {
+      minEventInterval += delta;
+      maxEventInterval += delta;
+    } else {
+      std::cerr << "Cannot increase interval further." << std::endl;
+    }
   };
 
   commands["pause"] = [&paused](const char *args) {

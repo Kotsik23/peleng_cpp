@@ -17,7 +17,7 @@ void reader(int readPipe, std::unique_ptr<Logger> &logger, EventTracker &tracker
     if (!paused) {
       Event e{};
       if (read(readPipe, &e, sizeof(Event)) <= 0) {
-        std::cerr << "Error reading from pipe or pipe closed. " << strerror(errno) << std::endl;
+        std::cerr << "Error reading from pipe or pipe closed. " << std::strerror(errno) << std::endl;
       }
       logger->Write(e);
       tracker.Increment();
