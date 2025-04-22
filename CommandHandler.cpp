@@ -56,6 +56,7 @@ CommandHandler::CommandHandler(std::atomic<bool> &running, std::atomic<bool> &pa
 
   commands["pause"] = [&paused](const char *args) {
     paused = true;
+    std::printf("test string\n");
   };
 
   commands["resume"] = [&paused](const char *args) {
